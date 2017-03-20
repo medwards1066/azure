@@ -1,4 +1,4 @@
-$drive = get-volume -FileSystemLabel "UBW" | select -expandproperty DriveLetter
+$drive = get-volume -FileSystemLabel "UBWM6ISO" | select -expandproperty DriveLetter
 $date = (Get-Date -format yyyyMMddHHmmss)
 
 New-Item 'c:\unit4cloud' -type directory
