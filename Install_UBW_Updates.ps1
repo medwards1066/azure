@@ -26,6 +26,8 @@ Unzip "c:\unit4cloud\UBW2016UPDATE02.zip" "c:\unit4cloud\UBW2016UPDATE02"
 
 msiexec /update 'C:\unit4cloud\UBW2016UPDATE02\UBW2016UPDATE02 (32-bit).msp' /quiet
 
+Start-Sleep -s 300
+
 #Install 64 bit Update
 
 msiexec /update 'C:\unit4cloud\UBW2016UPDATE02\UBW2016UPDATE02 (64-bit).msp' /quiet
