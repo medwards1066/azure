@@ -9,6 +9,8 @@ $Links = @($HTML.Links.href | Where{ $_ -like 'UpdateDetails*' } ).replace("Upda
 
 $date = (Get-Date -format yyyyMMddHHmmss)
 
+$message = ""
+
 # Unzip function
 
 Add-Type -AssemblyName System.IO.Compression.FileSystem
@@ -29,19 +31,21 @@ foreach ($Link in $Links)
     $Zipfilename = $Filename + ".zip"
     $output = $Folder + "\" + $Zipfilename
     $start_time = Get-Date
-    write-host "Downloading " $Link " to " $output
+    $message = "DOWNLOADING " + $Link + " to " + $output + "`n"
     Invoke-WebRequest -Uri $Link -OutFile $output
     If ($Install = 'Y')
     {
-        write-host "Unzipping " $output " to " $Folder "\" $Filename
+        $message = $message + "UNZIPPING " + $output + " to " + $Folder + "\" + $Filename + "`n"
         Unzip $output ($Folder + "\" + $Filename)
         $msifiles = Get-ChildItem -Path ($Folder + "\" + $Filename) -Filter *.msi | % { $_.FullName } 
         foreach ($msifile in $msifiles)
         {
-            write-host "Installing " $msifile
+            $message = $message + "INSTALLING " + $msifile + "`n"
             $args = "/i " + '"' + $msifile + '"' + " /quiet /l*v " + '"' + $Folder + "\" + $Filename + "\" + $date + "install.log" + '"'
             start-process msiexec.exe -ArgumentList $args -Wait
         }
-    }
-    write-host "Finished."
+    }  
 }
+
+write-host "Finished."
+
