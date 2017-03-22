@@ -9,4 +9,4 @@ $arg = ('/S /V"INSTALLLEVEL=150 INSTALL_IIS=1 /qn /lv*x c:\unit4cloud\ubwinstall
 #write-host $cmd
 #write-host $arg
 
-start-process $cmd -argumentlist $arg
+start-process $cmd -argumentlist $arg -wait
